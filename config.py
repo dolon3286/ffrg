@@ -1,45 +1,30 @@
-"""
-from os import getenv
-
-
-API_ID = int(getenv("API_ID", "27775431"))
-API_HASH = getenv("API_HASH", "b70bb1d45a1d05236671d4cc615e40f9")
-BOT_TOKEN = getenv("BOT_TOKEN", "")
-OWNER_ID = int(getenv("OWNER_ID", "6414266397"))
-SUDO_USERS = list(map(int, getenv("SUDO_USERS", "6414266397").split()))
-MONGO_URL = getenv("MONGO_DB", "mongodb+srv://Rohitmeena64:Ajmeer234590577@cluster0.mae8oyn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-
-CHANNEL_ID = int(getenv("CHANNEL_ID", "-1002446676469"))
-PREMIUM_LOGS = int(getenv("PREMIUM_LOGS", "-1002446676469")) "6126688051"))
-API_HASH = environ.get("API_HASH", "b70bb1d45a1d05236671d4cc615e40f9")
-
-"""
-#
-
-
-
-
-# --------------M----------------------------------
-
 import os
 from os import getenv
-# ---------------R---------------------------------
-API_ID = int(os.environ.get("API_ID", "27775431"))
-# ------------------------------------------------
-API_HASH = os.environ.get("API_HASH", "b70bb1d45a1d05236671d4cc615e40f9")
-# ----------------D--------------------------------
+
+
+def _get_int(name, default=0):
+    value = os.environ.get(name, str(default)).strip()
+    return int(value) if value else int(default)
+
+
+API_ID = _get_int("API_ID")
+API_HASH = os.environ.get("API_HASH", "")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
-# -----------------A-------------------------------
-BOT_USERNAME = os.environ.get("")
-# ------------------X------------------------------
-OWNER_ID = int(os.environ.get("OWNER_ID", "6414266397"))
-# ------------------X------------------------------
-
-SUDO_USERS = list(map(int, getenv("SUDO_USERS", "6414266397").split()))
-# ------------------------------------------------
-CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002446676469"))
-# ------------------------------------------------
-MONGO_URL = os.environ.get("MONGO_URL", "mongodb+srv://Rohitmeena64:Ajmeer234590577@cluster0.mae8oyn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-# -----------------------------------------------
-PREMIUM_LOGS = int(os.environ.get("PREMIUM_LOGS", "-1002446676469"))
-
+BOT_USERNAME = os.environ.get("BOT_USERNAME", "")
+OWNER_ID = _get_int("OWNER_ID")
+SUDO_USERS = [
+    int(user_id)
+    for user_id in getenv("SUDO_USERS", str(OWNER_ID)).replace(",", " ").split()
+    if user_id
+]
+CHANNEL_ID = _get_int("CHANNEL_ID")
+MONGO_URL = os.environ.get("MONGO_URL") or os.environ.get("MONGO_DB", "mongodb://mongo:27017/extractor_bot")
+PREMIUM_LOGS = _get_int("PREMIUM_LOGS", CHANNEL_ID)
+# Optional UI/content settings used by extractor modules.
+CHANNEL_ID2 = _get_int("CHANNEL_ID2", CHANNEL_ID)
+BOT_TEXT = os.environ.get("BOT_TEXT", "")
+THUMB_URL = os.environ.get("THUMB_URL", "")
+thumb_url = THUMB_URL
+UNSPLASH_QUERY = os.environ.get("UNSPLASH_QUERY", "education")
+UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY", "")
+join = os.environ.get("JOIN_URL", "")

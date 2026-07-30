@@ -1,0 +1,26 @@
+services:
+  extractor-bot:
+    build: .
+    container_name: ffrg-extractor-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    volumes:
+      - extractor_sessions:/root/.extractor_bot
+    ports:
+      - "8000:8000"
+
+  mongo:
+    image: mongo:7
+    container_name: ffrg-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  extractor_sessions:
+  mongo_data:

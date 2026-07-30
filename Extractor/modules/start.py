@@ -32,8 +32,6 @@ from Extractor.modules.freeappx import *
 from Extractor.modules.freepw import *
 
 from Extractor.core.mongo import plans_db
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import requests
 import config
 

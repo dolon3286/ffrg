@@ -4,7 +4,6 @@ import threading
 import asyncio
 import cloudscraper
 import time
-from pyromod import listen
 from pyrogram import Client
 from pyrogram import filters
 from pyrogram.types import Message
