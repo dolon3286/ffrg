@@ -1,21 +1,21 @@
-# Use a lightweight base image
-FROM python:3.11-alpine
+FROM python:3.11-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
 
-# Set working directory
 WORKDIR /app
 
-# Copy the requirements file
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends gcc ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt .
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of your application code
 COPY . .
 
-# Command to run Gunicorn for the Flask app and the Extractor
-CMD ["sh", "-c", "gunicorn app:app -b 0.0.0.0:8000 & python3 -m Extractor"]
+EXPOSE 8000
+
+CMD ["sh", "-c", "gunicorn app:app -b 0.0.0.0:8000 & python -m Extractor"]
