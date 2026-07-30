@@ -7,6 +7,8 @@ __pycache__/
 *.session
 *.session-journal
 *.txt
+!requirements.txt
+!Special Classes.txt
 .pytest_cache/
 .mypy_cache/
 .venv/
